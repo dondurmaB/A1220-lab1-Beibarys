@@ -1,2 +1,2 @@
 run:
-	python src/Lab1/main.py receipts --print
+	python -m src.Lab1.main receipts --print

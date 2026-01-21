@@ -4,12 +4,18 @@ import argparse
 from . import file_io as io_mod
 from . import gpt
 
+def process_output(data):
+    if data["amount"][0] == "$":
+        data["amount"] = data["amount"][1:]
+    data["amount"] = float(data["amount"])
+    return data
+
 def process_directory(dirpath):
     """Iterate through all receipts and gets data by asking prompt.
 
     Args:
         dirpath: Direction of a folder that contains receipts.
-        
+
     Returns:
         The dictionary that contains the information of receipts.
     """
@@ -17,7 +23,7 @@ def process_directory(dirpath):
     for name, path in io_mod.list_files(dirpath):
         image_b64 = io_mod.encode_file(path)
         data = gpt.extract_receipt_info(image_b64)
-        results[name] = data
+        results[name] = process_output(data)
     return results
 
 def main():
