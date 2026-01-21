@@ -1,0 +1,6 @@
+__pycache__
+.dist
+.DS_Store
+
+docs
+receipts
