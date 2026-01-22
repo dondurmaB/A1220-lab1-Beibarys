@@ -3,3 +3,6 @@ run:
 
 expenses:
 	python -m src.Lab1.main receipts --print --expenses $(ARGS)
+
+plot:
+	python -m src.Lab1.main receipts --plot
