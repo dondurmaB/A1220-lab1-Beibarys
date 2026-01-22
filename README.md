@@ -13,5 +13,8 @@ Install openai library using
 # Usage
 To run the program, use the "make" or "make run" command in terminal. After that, the program will output the result in terminal.
 
+# Plot
+I used basic, default visualization options for the plot and added the title.
+
 # License
 This program uses GPL license.

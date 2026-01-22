@@ -3,6 +3,7 @@ import json
 import argparse
 from . import file_io as io_mod
 from . import gpt
+import matplotlib.pyplot as plt
 
 def process_output(data):
     if data["amount"] == None:
@@ -59,9 +60,35 @@ def main():
     parser.add_argument("dirpath")
     parser.add_argument("--print", action="store_true")
     parser.add_argument("--expenses", nargs=2, type=str)
+    parser.add_argument("--plot", action="store_true")
     args = parser.parse_args()
 
     data = process_directory(args.dirpath, args.expenses)
+
+    if args.plot:
+        categories = ["Meals", "Transport", "Lodging", "Office Supplies", 
+        "Entertainment", "Other"]
+        dist = {}
+        for c in categories:
+            dist[c] = 0
+        sm = 0
+        for name, info in data.items():
+            if info["category"] is not None and info["amount"] is not None and isinstance(info["amount"], float):
+                dist[info["category"]] += info["amount"]
+                sm += info["amount"]
+        
+        pct = []
+        labels = []
+
+        for c in dist.keys():
+            if dist[c] > 0:
+                labels.append(c)
+                pct.append(round(dist[c] / sm, 2))
+
+        fig, ax = plt.subplots()
+        ax.pie(pct, labels=labels, autopct='%1.1f%%')
+        plt.title("Percentage of expenses of categories")
+        plt.savefig("expenses_by_category.png") 
 
     if args.print:
         print(json.dumps(data, indent=2))
