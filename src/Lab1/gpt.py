@@ -20,7 +20,7 @@ def extract_receipt_info(image_b64):
 You are an information extraction system.
 Extract ONLY the following fields from the receipt image:
 
-date: the receipt date as a string
+date: the receipt date as a string (Change the format of date to YYYY-MM-DD if data is present)
 amount: the total amount paid as it appears on the receipt
 vendor: the merchant or vendor name
 category: one of [{", ".join(CATEGORIES)}]
